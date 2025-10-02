@@ -24,6 +24,37 @@ const Todo = ({ id, title, description, mongoId, complete, fetchTodos, view }) =
         }
     };
 
+    // Function to convert URLs in text to clickable links
+    const linkifyText = (text) => {
+        if (!text) return null;
+        
+        // Regular expression to match URLs
+        const urlRegex = /(https?:\/\/[^\s]+)|(www\.[^\s]+)|([a-zA-Z0-9][a-zA-Z0-9-]{1,61}[a-zA-Z0-9]\.[^\s]+)/g;
+        
+        const parts = text.split(urlRegex).filter(Boolean);
+        
+        return parts.map((part, index) => {
+            // Check if the part is a URL
+            if (part && (part.match(/^https?:\/\//) || part.match(/^www\./) || part.match(/\.[a-z]{2,}/i))) {
+                // Add https:// if not present
+                const href = part.startsWith('http') ? part : `https://${part}`;
+                return (
+                    <a
+                        key={index}
+                        href={href}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-blue-600 hover:text-blue-800 underline font-medium hover:no-underline transition-colors"
+                        onClick={(e) => e.stopPropagation()}
+                    >
+                        {part}
+                    </a>
+                );
+            }
+            return <span key={index}>{part}</span>;
+        });
+    };
+
     // Desktop Table Row
     if(view === "desktop") {
         return (
@@ -37,7 +68,7 @@ const Todo = ({ id, title, description, mongoId, complete, fetchTodos, view }) =
                     {title}
                 </td>
                 <td className={`px-6 py-4 ${complete ? "line-through text-gray-400" : "text-gray-600"}`}>
-                    {description}
+                    {linkifyText(description)}
                 </td>
                 <td className="px-6 py-4">
                     {complete ? (
@@ -116,7 +147,7 @@ const Todo = ({ id, title, description, mongoId, complete, fetchTodos, view }) =
                 {title}
             </h3>
             <p className={`text-sm mb-4 ${complete ? "line-through text-gray-400" : "text-gray-600"}`}>
-                {description}
+                {linkifyText(description)}
             </p>
             
             <div className="flex gap-2">
