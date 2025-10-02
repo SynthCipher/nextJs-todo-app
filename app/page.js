@@ -56,7 +56,7 @@ const Home = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-purple-50 via-blue-50 to-pink-50">
-      <ToastContainer theme="light" position="top-right" />
+      <ToastContainer autoClose={1500} theme="light" position="top-right" />
 
       <div className="max-w-6xl mx-auto px-4 py-8">
         {/* Stats Cards */}
