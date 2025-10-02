@@ -219,16 +219,16 @@ const Todo = ({ id, title, description, mongoId, complete, fetchTodos, view, cre
                             {complete && updatedAt && (
                                 <div className="flex flex-col mb-2 p-2 bg-green-50 rounded-md border border-green-200">
                                     <span className="text-xs text-green-600 font-semibold mb-1">Completed:</span>
-                                 <span className="text-sm font-medium text-gray-700" title={getFullDateTime(updatedAt)}>
-  {formatDate(updatedAt)},&nbsp;
-  <span className="text-xs text-gray-500">
-    {new Date(updatedAt).toLocaleTimeString('en-US', {
-      hour: 'numeric',
-      minute: '2-digit',
-      hour12: true,
-    })}
-  </span>
-</span>
+                                    <span className="text-sm font-medium text-gray-700" title={getFullDateTime(updatedAt)}>
+                                        {formatDate(updatedAt)},&nbsp;
+                                        <span className="text-xs text-gray-500">
+                                            {new Date(updatedAt).toLocaleTimeString('en-US', {
+                                                hour: 'numeric',
+                                                minute: '2-digit',
+                                                hour12: true,
+                                            })}
+                                        </span>
+                                    </span>
 
 
                                 </div>

@@ -6,6 +6,8 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 const Home = () => {
+  const tasksRef = React.useRef(null);
+
   const [formData, setFormData] = useState({
     title: "",
     description: "",
@@ -41,6 +43,9 @@ const Home = () => {
       toast.success(response.data.msg);
       setFormData({ title: "", description: "" });
       await fetchTodos();
+
+      // Scroll to tasks section
+      tasksRef.current?.scrollIntoView({ behavior: "smooth" });
     } catch (error) {
       toast.error("Error adding todo");
     }
@@ -209,7 +214,10 @@ const Home = () => {
         </div>
 
         {/* Todos List */}
-        <div className="bg-white rounded-2xl shadow-lg p-8 border border-gray-100">
+        <div
+          ref={tasksRef}
+          className="bg-white rounded-2xl shadow-lg p-8 border border-gray-100"
+        >
           <h2 className="text-2xl font-bold text-gray-800 mb-6 flex items-center gap-2">
             <span className="bg-gradient-to-r from-blue-600 to-cyan-600 rounded-lg p-2">
               <svg
